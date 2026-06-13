@@ -102,13 +102,14 @@ class BacktestEngine:
         if not self.trades:
             return 0.0
         peak = self.initial_balance
+        equity = self.initial_balance
         max_dd = 0
-        
+
         for trade in self.trades:
-            self.balance += trade['pnl']
-            if self.balance > peak:
-                peak = self.balance
-            dd = (peak - self.balance) / peak
+            equity += trade['pnl']
+            if equity > peak:
+                peak = equity
+            dd = (peak - equity) / peak
             max_dd = max(max_dd, dd)
-            
+
         return max_dd * 100
